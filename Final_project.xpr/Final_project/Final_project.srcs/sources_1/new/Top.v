@@ -21,8 +21,8 @@
 
 
 module Top(
-    input clk,          // 100 MHz FPGA clock
-    input [11:0] sw,   // unused
+    input clk,          // 100 MHz
+    input [11:0] sw,    // unused
     input btnL,
     input btnR,
     input btnC,
@@ -33,17 +33,24 @@ module Top(
     output vsync,
     output [11:0] rgb
     );
-    
-    wire video_on;
-    wire p_tick;
-    wire [9:0] x;
-    wire [9:0] y;
-    wire [11:0] color;
-    wire [11:0] snake_color;
-    
+
+    // ---- declare everything BEFORE it is used in a port connection ----
+    reg [2:0] state = 3'b000;
+    wire video_on, p_tick;
+    wire [9:0] x, y;
+    wire [11:0] color, snake_color;
+
+    // ---- clean up the buttons (synchronize + debounce) ----
+    wire L, R, U, D, C;
+    debounce db_l(.clk(clk), .din(btnL), .dout(L));
+    debounce db_r(.clk(clk), .din(btnR), .dout(R));
+    debounce db_u(.clk(clk), .din(btnU), .dout(U));
+    debounce db_d(.clk(clk), .din(btnD), .dout(D));
+    debounce db_c(.clk(clk), .din(btnC), .dout(C));
+
     vga_controller vga_c(
         .clk_100MHz(clk),
-        .reset(btnC),
+        .reset(1'b0),            // was btnC; center button is now free for the menu
         .hsync(hsync),
         .vsync(vsync),
         .video_on(video_on),
@@ -51,93 +58,85 @@ module Top(
         .x(x),
         .y(y)
     );
-    
+
     selection_screen sel_s(
-        .x(x),
-        .y(y),
+        .x(x), .y(y),
         .selector(state),
         .color(color)
     );
-    
+
+    wire playing_snake = (state == 3'b011);
+
     snake_game game_one(
-        .x(x),
-        .y(y),
-        .btnU(btnU),
-        .btnD(btnD),
-        .btnR(btnR),
-        .btnL(btnL),
+        .clk(clk),
+        .reset(~playing_snake),  // game held in reset while in the menu
+        .x(x), .y(y),
+        .btnU(U), .btnD(D), .btnR(R), .btnL(L),
         .color(snake_color)
     );
-    
-    reg [2:0] state = 3'b000;
-    reg prevBtnL, prevBtnR, prevBtnU, prevBtnD, prevBtnC = 1'b0;
-    
-    //State control code
+
+    // ---- menu / state machine ----
+    reg prevL = 0, prevR = 0, prevC = 0;
+    wire pressL = L & ~prevL;
+    wire pressR = R & ~prevR;
+    wire pressC = C & ~prevC;
+
     always @(posedge clk) begin
-        case(state)
-        
-            //game one selected
-            3'b000: begin
-                if(btnR == 1'b1 && prevBtnR == 1'b0) begin
-                    state <= 3'b001;
-                end
-                else if(btnC  == 1'b1 && prevBtnC == 1'b0)begin
-                    state = 3'b011;
-                end
-                else if (btnL == 1'b1 && prevBtnL == 1'b0) begin
-                    state <= 3'b010;
-                end
+        prevL <= L;
+        prevR <= R;
+        prevC <= C;
+
+        case (state)
+            3'b000: begin   // game one (snake) highlighted
+                if (pressR)      state <= 3'b001;
+                else if (pressL) state <= 3'b010;
+                else if (pressC) state <= 3'b011;
             end
-            
-            //game two selected
-            3'b001: begin
-                if(btnR == 1'b1 && prevBtnR == 1'b0) begin
-                    state <= 3'b010;
-                end
-                else if (btnL == 1'b1 && prevBtnL == 1'b0) begin
-                    state <= 3'b000;
-                end
+            3'b001: begin   // game two highlighted
+                if (pressR)      state <= 3'b010;
+                else if (pressL) state <= 3'b000;
             end
-            
-            //game three selected
-            3'b010: begin
-                if(btnR == 1'b1 && prevBtnR == 1'b0) begin
-                    state <= 3'b000;
-                end
-                else if (btnL == 1'b1 && prevBtnL == 1'b0) begin
-                    state <= 3'b001;
-                end
+            3'b010: begin   // game three highlighted
+                if (pressR)      state <= 3'b000;
+                else if (pressL) state <= 3'b001;
             end
-            
-            //playing snake
-            3'b011: begin
-             if(btnC == 1'b1 && prevBtnC == 1'b0)
-                state <= 3'b000;
+            3'b011: begin   // playing snake: center button returns to menu
+                if (pressC) state <= 3'b000;
             end
+            default: state <= 3'b000;
         endcase
-        //DEBOUNCE CODE
-        prevBtnL <= btnL;
-        prevBtnR <= btnR;
-        prevBtnU <= btnU;
-        prevBtnD <= btnD;
-        prevBtnC <= ~btnC;
     end
+
     assign led = state;
-    
+
+    // ---- pick what to draw ----
     reg [11:0] rgb_reg;
-    //code for drawing game btnC
     always @(*) begin
-        rgb_reg = 12'b0000_0000_0000;
-        
-        if (video_on) begin
-            if(state == 3'b000 || state == 3'b001 || state == 3'b010) begin
-                rgb_reg <= color;
-            end
-            if(state == 3'b011) begin //launch btnC
-                rgb_reg <= snake-color;
-            end
+        if (!video_on)          rgb_reg = 12'h000;
+        else if (playing_snake) rgb_reg = snake_color;
+        else                    rgb_reg = color;
+    end
+    assign rgb = rgb_reg;
+endmodule
+
+
+// 2-flop synchronizer + ~10 ms debounce. Output only changes after the
+// input has been stable for 2^20 clocks (~10 ms at 100 MHz).
+module debounce(
+    input clk,
+    input din,
+    output reg dout = 1'b0
+    );
+    reg s0 = 0, s1 = 0;
+    reg [19:0] cnt = 0;
+    always @(posedge clk) begin
+        s0 <= din;
+        s1 <= s0;
+        if (s1 == dout)
+            cnt <= 0;
+        else begin
+            cnt <= cnt + 1;
+            if (&cnt) dout <= s1;
         end
     end
-    
-    assign rgb = rgb_reg;
 endmodule
