@@ -1,0 +1,49 @@
+Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2021.1 (win64) Build 3247384 Thu Jun 10 19:36:33 MDT 2021
+| Date         : Thu Oct  8 03:36:27 2026
+| Host         : AK113-11 running 64-bit major release  (build 9200)
+| Command      : report_drc -file Top_drc_opted.rpt -pb Top_drc_opted.pb -rpx Top_drc_opted.rpx
+| Design       : Top
+| Device       : xc7a35tcpg236-1
+| Speed File   : -1
+| Design State : Synthesized
+------------------------------------------------------------------------------------------------
+
+Report DRC
+
+Table of Contents
+-----------------
+1. REPORT SUMMARY
+2. REPORT DETAILS
+
+1. REPORT SUMMARY
+-----------------
+            Netlist: netlist
+          Floorplan: design_1
+      Design limits: <entire design considered>
+           Ruledeck: default
+             Max violations: <unlimited>
+             Violations found: 1
++-------------+----------+-------------------------------------------------------------+------------+
+| Rule        | Severity | Description                                                 | Violations |
++-------------+----------+-------------------------------------------------------------+------------+
+| PLHOLDVIO-2 | Warning  | Non-Optimal connections which could lead to hold violations | 1          |
++-------------+----------+-------------------------------------------------------------+------------+
+
+2. REPORT DETAILS
+-----------------
+PLHOLDVIO-2#1 Warning
+Non-Optimal connections which could lead to hold violations  
+A LUT vga_c/h_count_next[9]_i_2 is driving clock pin of 20 cells. This could lead to large hold time violations. Involved cells are:
+vga_c/h_count_next_reg[0], vga_c/h_count_next_reg[1],
+vga_c/h_count_next_reg[2], vga_c/h_count_next_reg[3],
+vga_c/h_count_next_reg[4], vga_c/h_count_next_reg[5],
+vga_c/h_count_next_reg[6], vga_c/h_count_next_reg[7],
+vga_c/h_count_next_reg[8], vga_c/h_count_next_reg[9],
+vga_c/v_count_next_reg[0], vga_c/v_count_next_reg[1],
+vga_c/v_count_next_reg[2], vga_c/v_count_next_reg[3],
+vga_c/v_count_next_reg[4] (the first 15 of 20 listed)
+Related violations: <none>
+
+

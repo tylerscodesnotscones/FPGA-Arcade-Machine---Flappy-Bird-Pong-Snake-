@@ -1,0 +1,208 @@
+Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2021.1 (win64) Build 3247384 Thu Jun 10 19:36:33 MDT 2021
+| Date         : Thu Oct  8 03:36:31 2026
+| Host         : AK113-11 running 64-bit major release  (build 9200)
+| Command      : report_control_sets -verbose -file Top_control_sets_placed.rpt
+| Design       : Top
+| Device       : xc7a35t
+------------------------------------------------------------------------------------
+
+Control Set Information
+
+Table of Contents
+-----------------
+1. Summary
+2. Histogram
+3. Flip-Flop Distribution
+4. Detailed Control Set Information
+
+1. Summary
+----------
+
++----------------------------------------------------------+-------+
+|                          Status                          | Count |
++----------------------------------------------------------+-------+
+| Total control sets                                       |   130 |
+|    Minimum number of control sets                        |   130 |
+|    Addition due to synthesis replication                 |     0 |
+|    Addition due to physical synthesis replication        |     0 |
+| Unused register locations in slices containing registers |   422 |
++----------------------------------------------------------+-------+
+* Control sets can be merged at opt_design using control_set_merge or merge_equivalent_drivers
+** Run report_qor_suggestions for automated merging and remapping suggestions
+
+
+2. Histogram
+------------
+
++--------------------+-------+
+|       Fanout       | Count |
++--------------------+-------+
+| Total control sets |   130 |
+| >= 0 to < 4        |     2 |
+| >= 4 to < 6        |     2 |
+| >= 6 to < 8        |     3 |
+| >= 8 to < 10       |     7 |
+| >= 10 to < 12      |     4 |
+| >= 12 to < 14      |   101 |
+| >= 14 to < 16      |     0 |
+| >= 16              |    11 |
++--------------------+-------+
+* Control sets can be remapped at either synth_design or opt_design
+
+
+3. Flip-Flop Distribution
+-------------------------
+
++--------------+-----------------------+------------------------+-----------------+--------------+
+| Clock Enable | Synchronous Set/Reset | Asynchronous Set/Reset | Total Registers | Total Slices |
++--------------+-----------------------+------------------------+-----------------+--------------+
+| No           | No                    | No                     |              86 |           45 |
+| No           | No                    | Yes                    |               0 |            0 |
+| No           | Yes                   | No                     |             302 |           91 |
+| Yes          | No                    | No                     |            1297 |          555 |
+| Yes          | No                    | Yes                    |               0 |            0 |
+| Yes          | Yes                   | No                     |             197 |           73 |
++--------------+-----------------------+------------------------+-----------------+--------------+
+
+
+4. Detailed Control Set Information
+-----------------------------------
+
++--------------------------------+-----------------------------------+----------------------------------+------------------+----------------+--------------+
+|          Clock Signal          |           Enable Signal           |         Set/Reset Signal         | Slice Load Count | Bel Load Count | Bels / Slice |
++--------------------------------+-----------------------------------+----------------------------------+------------------+----------------+--------------+
+|  clk_IBUF_BUFG                 | pong_game/player_y116_out         | pong_game/ball_y[8]_i_1_n_0      |                2 |              2 |         1.00 |
+|  clk_IBUF_BUFG                 | pong_game/player_y116_out         | pong_game/ball_y[9]_i_1_n_0      |                2 |              2 |         1.00 |
+|  clk_IBUF_BUFG                 |                                   | vga_c/score_reg[5]_0             |                3 |              4 |         1.33 |
+|  clk_IBUF_BUFG                 |                                   | vga_c/is_score                   |                3 |              5 |         1.67 |
+|  clk_IBUF_BUFG                 | pong_game/player_y116_out         | pong_game/active_state           |                2 |              6 |         3.00 |
+|  clk_IBUF_BUFG                 | game_three/score                  | game_three/state0                |                2 |              6 |         3.00 |
+|  clk_IBUF_BUFG                 | game_three/vel[7]_i_1_n_0         | game_three/state0                |                3 |              7 |         2.33 |
+|  clk_IBUF_BUFG                 | game_one/food_x0                  | game_one/lfsr[15]_i_1_n_0        |                2 |              8 |         4.00 |
+|  clk_IBUF_BUFG                 | pong_game/ball_dx[9]_i_2_n_0      | pong_game/ball_dx[9]_i_1_n_0     |                3 |              8 |         2.67 |
+|  clk_IBUF_BUFG                 | pong_game/player_y116_out         | pong_game/ball_dy[9]_i_1_n_0     |                3 |              9 |         3.00 |
+|  clk_IBUF_BUFG                 | pong_game/player_y                | pong_game/active_state           |                3 |              9 |         3.00 |
+|  clk_IBUF_BUFG                 | game_three/pipe_gap               | game_three/state0                |                4 |              9 |         2.25 |
+|  clk_IBUF_BUFG                 | game_three/pipe_gap[1][8]_i_1_n_0 | game_three/state0                |                4 |              9 |         2.25 |
+|  clk_IBUF_BUFG                 | game_three/pipe_gap[2][8]_i_1_n_0 | game_three/state0                |                4 |              9 |         2.25 |
+|  clk_IBUF_BUFG                 | pong_game/comp_y                  | pong_game/active_state           |                4 |             10 |         2.50 |
+|  vga_c/h_count_next[9]_i_2_n_0 |                                   |                                  |                5 |             10 |         2.00 |
+|  vga_c/h_count_next[9]_i_2_n_0 | vga_c/v_count_next                |                                  |                4 |             10 |         2.50 |
+|  clk_IBUF_BUFG                 | pong_game/ball_dy                 | pong_game/ball_dy[9]_i_1_n_0     |                4 |             10 |         2.50 |
+|  clk_IBUF_BUFG                 | game_one/tail_ptr[6]_i_1_n_0      | game_one/lfsr[15]_i_1_n_0        |                5 |             12 |         2.40 |
+|  clk_IBUF_BUFG                 | game_one/body_x[93][6]_i_1_n_0    |                                  |                4 |             13 |         3.25 |
+|  clk_IBUF_BUFG                 | game_one/body_x[82][6]_i_1_n_0    |                                  |                8 |             13 |         1.62 |
+|  clk_IBUF_BUFG                 | game_one/body_x[87][6]_i_1_n_0    |                                  |                4 |             13 |         3.25 |
+|  clk_IBUF_BUFG                 | game_one/body_x[91][6]_i_1_n_0    |                                  |                5 |             13 |         2.60 |
+|  clk_IBUF_BUFG                 | game_one/body_x[99][6]_i_1_n_0    |                                  |                7 |             13 |         1.86 |
+|  clk_IBUF_BUFG                 | game_one/body_x[90][6]_i_1_n_0    |                                  |                3 |             13 |         4.33 |
+|  clk_IBUF_BUFG                 | game_one/body_x[11][6]_i_1_n_0    |                                  |                5 |             13 |         2.60 |
+|  clk_IBUF_BUFG                 | game_one/body_x[12][6]_i_1_n_0    |                                  |                5 |             13 |         2.60 |
+|  clk_IBUF_BUFG                 | game_one/body_x[10][6]_i_1_n_0    |                                  |                3 |             13 |         4.33 |
+|  clk_IBUF_BUFG                 | game_one/body_x[13][6]_i_1_n_0    |                                  |                4 |             13 |         3.25 |
+|  clk_IBUF_BUFG                 | game_one/body_x[15][6]_i_1_n_0    |                                  |                6 |             13 |         2.17 |
+|  clk_IBUF_BUFG                 | game_one/body_x[16][6]_i_1_n_0    |                                  |                7 |             13 |         1.86 |
+|  clk_IBUF_BUFG                 | game_one/body_x[14][6]_i_1_n_0    |                                  |                8 |             13 |         1.62 |
+|  clk_IBUF_BUFG                 | game_one/body_x[0][6]_i_1_n_0     | game_one/lfsr[15]_i_1_n_0        |                6 |             13 |         2.17 |
+|  clk_IBUF_BUFG                 | game_one/body_x[36][6]_i_1_n_0    |                                  |                4 |             13 |         3.25 |
+|  clk_IBUF_BUFG                 | game_one/body_x[19][6]_i_1_n_0    |                                  |                3 |             13 |         4.33 |
+|  clk_IBUF_BUFG                 | game_one/body_x[23][6]_i_1_n_0    |                                  |                6 |             13 |         2.17 |
+|  clk_IBUF_BUFG                 | game_one/body_x[24][6]_i_1_n_0    |                                  |                5 |             13 |         2.60 |
+|  clk_IBUF_BUFG                 | game_one/body_x[22][6]_i_1_n_0    |                                  |                3 |             13 |         4.33 |
+|  clk_IBUF_BUFG                 | game_one/body_x[28][6]_i_1_n_0    |                                  |                5 |             13 |         2.60 |
+|  clk_IBUF_BUFG                 | game_one/body_x[2][6]_i_1_n_0     |                                  |                4 |             13 |         3.25 |
+|  clk_IBUF_BUFG                 | game_one/body_x[18][6]_i_1_n_0    |                                  |                2 |             13 |         6.50 |
+|  clk_IBUF_BUFG                 | game_one/body_x[27][6]_i_1_n_0    |                                  |                8 |             13 |         1.62 |
+|  clk_IBUF_BUFG                 | game_one/body_x[30][6]_i_1_n_0    |                                  |                8 |             13 |         1.62 |
+|  clk_IBUF_BUFG                 | game_one/body_x[20][6]_i_1_n_0    |                                  |                4 |             13 |         3.25 |
+|  clk_IBUF_BUFG                 | game_one/body_x[31][6]_i_1_n_0    |                                  |               11 |             13 |         1.18 |
+|  clk_IBUF_BUFG                 | game_one/body_x[25][6]_i_1_n_0    |                                  |                7 |             13 |         1.86 |
+|  clk_IBUF_BUFG                 | game_one/body_x[32][6]_i_1_n_0    |                                  |                5 |             13 |         2.60 |
+|  clk_IBUF_BUFG                 | game_one/body_x[21][6]_i_1_n_0    |                                  |                3 |             13 |         4.33 |
+|  clk_IBUF_BUFG                 | game_one/body_x[26][6]_i_1_n_0    |                                  |                8 |             13 |         1.62 |
+|  clk_IBUF_BUFG                 | game_one/body_x[1][6]_i_1_n_0     |                                  |                4 |             13 |         3.25 |
+|  clk_IBUF_BUFG                 | game_one/body_x[29][6]_i_1_n_0    |                                  |                6 |             13 |         2.17 |
+|  clk_IBUF_BUFG                 | game_one/body_x[34][6]_i_1_n_0    |                                  |                2 |             13 |         6.50 |
+|  clk_IBUF_BUFG                 | game_one/body_x[17][6]_i_1_n_0    |                                  |                6 |             13 |         2.17 |
+|  clk_IBUF_BUFG                 | game_one/body_x[35][6]_i_1_n_0    |                                  |                6 |             13 |         2.17 |
+|  clk_IBUF_BUFG                 | game_one/body_x[33][6]_i_1_n_0    |                                  |                4 |             13 |         3.25 |
+|  clk_IBUF_BUFG                 | game_one/body_x[4][6]_i_1_n_0     |                                  |                3 |             13 |         4.33 |
+|  clk_IBUF_BUFG                 | game_one/body_x[41][6]_i_1_n_0    |                                  |                5 |             13 |         2.60 |
+|  clk_IBUF_BUFG                 | game_one/body_x[43][6]_i_1_n_0    |                                  |                5 |             13 |         2.60 |
+|  clk_IBUF_BUFG                 | game_one/body_x[46][6]_i_1_n_0    |                                  |                7 |             13 |         1.86 |
+|  clk_IBUF_BUFG                 | game_one/body_x[47][6]_i_1_n_0    |                                  |               11 |             13 |         1.18 |
+|  clk_IBUF_BUFG                 | game_one/body_x[44][6]_i_1_n_0    |                                  |                7 |             13 |         1.86 |
+|  clk_IBUF_BUFG                 | game_one/body_x[51][6]_i_1_n_0    |                                  |                5 |             13 |         2.60 |
+|  clk_IBUF_BUFG                 | game_one/body_x[52][6]_i_1_n_0    |                                  |                2 |             13 |         6.50 |
+|  clk_IBUF_BUFG                 | game_one/body_x[38][6]_i_1_n_0    |                                  |                3 |             13 |         4.33 |
+|  clk_IBUF_BUFG                 | game_one/body_x[49][6]_i_1_n_0    |                                  |                6 |             13 |         2.17 |
+|  clk_IBUF_BUFG                 | game_one/body_x[53][6]_i_1_n_0    |                                  |                4 |             13 |         3.25 |
+|  clk_IBUF_BUFG                 | game_one/body_x[42][6]_i_1_n_0    |                                  |                6 |             13 |         2.17 |
+|  clk_IBUF_BUFG                 | game_one/body_x[55][6]_i_1_n_0    |                                  |                4 |             13 |         3.25 |
+|  clk_IBUF_BUFG                 | game_one/body_x[50][6]_i_1_n_0    |                                  |                8 |             13 |         1.62 |
+|  clk_IBUF_BUFG                 | game_one/body_x[56][6]_i_1_n_0    |                                  |                3 |             13 |         4.33 |
+|  clk_IBUF_BUFG                 | game_one/body_x[37][6]_i_1_n_0    |                                  |                6 |             13 |         2.17 |
+|  clk_IBUF_BUFG                 | game_one/body_x[57][6]_i_1_n_0    |                                  |                3 |             13 |         4.33 |
+|  clk_IBUF_BUFG                 | game_one/body_x[40][6]_i_1_n_0    |                                  |                8 |             13 |         1.62 |
+|  clk_IBUF_BUFG                 | game_one/body_x[58][6]_i_1_n_0    |                                  |                3 |             13 |         4.33 |
+|  clk_IBUF_BUFG                 | game_one/body_x[54][6]_i_1_n_0    |                                  |                4 |             13 |         3.25 |
+|  clk_IBUF_BUFG                 | game_one/body_x[3][6]_i_1_n_0     |                                  |                4 |             13 |         3.25 |
+|  clk_IBUF_BUFG                 | game_one/body_x[59][6]_i_1_n_0    |                                  |                6 |             13 |         2.17 |
+|  clk_IBUF_BUFG                 | game_one/body_x[5][6]_i_1_n_0     |                                  |                7 |             13 |         1.86 |
+|  clk_IBUF_BUFG                 | game_one/body_x[39][6]_i_1_n_0    |                                  |                6 |             13 |         2.17 |
+|  clk_IBUF_BUFG                 | game_one/body_x[45][6]_i_1_n_0    |                                  |                4 |             13 |         3.25 |
+|  clk_IBUF_BUFG                 | game_one/body_x[48][6]_i_1_n_0    |                                  |                4 |             13 |         3.25 |
+|  clk_IBUF_BUFG                 | game_one/body_x[6][6]_i_1_n_0     |                                  |                8 |             13 |         1.62 |
+|  clk_IBUF_BUFG                 | game_one/body_x[75][6]_i_1_n_0    |                                  |                8 |             13 |         1.62 |
+|  clk_IBUF_BUFG                 | game_one/body_x[7][6]_i_1_n_0     |                                  |                5 |             13 |         2.60 |
+|  clk_IBUF_BUFG                 | game_one/body_x[69][6]_i_1_n_0    |                                  |                2 |             13 |         6.50 |
+|  clk_IBUF_BUFG                 | game_one/body_x[74][6]_i_1_n_0    |                                  |                9 |             13 |         1.44 |
+|  clk_IBUF_BUFG                 | game_one/body_x[67][6]_i_1_n_0    |                                  |                7 |             13 |         1.86 |
+|  clk_IBUF_BUFG                 | game_one/body_x[77][6]_i_1_n_0    |                                  |                9 |             13 |         1.44 |
+|  clk_IBUF_BUFG                 | game_one/body_x[78][6]_i_1_n_0    |                                  |                5 |             13 |         2.60 |
+|  clk_IBUF_BUFG                 | game_one/body_x[61][6]_i_1_n_0    |                                  |               11 |             13 |         1.18 |
+|  clk_IBUF_BUFG                 | game_one/body_x[68][6]_i_1_n_0    |                                  |                4 |             13 |         3.25 |
+|  clk_IBUF_BUFG                 | game_one/body_x[66][6]_i_1_n_0    |                                  |                4 |             13 |         3.25 |
+|  clk_IBUF_BUFG                 | game_one/body_x[72][6]_i_1_n_0    |                                  |                7 |             13 |         1.86 |
+|  clk_IBUF_BUFG                 | game_one/body_x[79][6]_i_1_n_0    |                                  |               11 |             13 |         1.18 |
+|  clk_IBUF_BUFG                 | game_one/body_x[80][6]_i_1_n_0    |                                  |                4 |             13 |         3.25 |
+|  clk_IBUF_BUFG                 | game_one/body_x[60][6]_i_1_n_0    |                                  |                3 |             13 |         4.33 |
+|  clk_IBUF_BUFG                 | game_one/body_x[64][6]_i_1_n_0    |                                  |                4 |             13 |         3.25 |
+|  clk_IBUF_BUFG                 | game_one/body_x[71][6]_i_1_n_0    |                                  |               10 |             13 |         1.30 |
+|  clk_IBUF_BUFG                 | game_one/body_x[63][6]_i_1_n_0    |                                  |               10 |             13 |         1.30 |
+|  clk_IBUF_BUFG                 | game_one/body_x[65][6]_i_1_n_0    |                                  |                8 |             13 |         1.62 |
+|  clk_IBUF_BUFG                 | game_one/body_x[73][6]_i_1_n_0    |                                  |                5 |             13 |         2.60 |
+|  clk_IBUF_BUFG                 | game_one/body_x[81][6]_i_1_n_0    |                                  |                7 |             13 |         1.86 |
+|  clk_IBUF_BUFG                 | game_one/body_x[62][6]_i_1_n_0    |                                  |                2 |             13 |         6.50 |
+|  clk_IBUF_BUFG                 | game_one/body_x[70][6]_i_1_n_0    |                                  |                3 |             13 |         4.33 |
+|  clk_IBUF_BUFG                 | game_one/body_x[9][6]_i_1_n_0     |                                  |               11 |             13 |         1.18 |
+|  clk_IBUF_BUFG                 | game_one/body_x[86][6]_i_1_n_0    |                                  |                6 |             13 |         2.17 |
+|  clk_IBUF_BUFG                 | game_one/body_x[88][6]_i_1_n_0    |                                  |                7 |             13 |         1.86 |
+|  clk_IBUF_BUFG                 | game_one/body_x[8][6]_i_1_n_0     |                                  |                5 |             13 |         2.60 |
+|  clk_IBUF_BUFG                 | game_one/body_x[83][6]_i_1_n_0    |                                  |                6 |             13 |         2.17 |
+|  clk_IBUF_BUFG                 | game_one/body_x[85][6]_i_1_n_0    |                                  |                2 |             13 |         6.50 |
+|  clk_IBUF_BUFG                 | game_one/body_x[89][6]_i_1_n_0    |                                  |                3 |             13 |         4.33 |
+|  clk_IBUF_BUFG                 | game_one/body_x[96][6]_i_1_n_0    |                                  |                6 |             13 |         2.17 |
+|  clk_IBUF_BUFG                 | game_one/body_x[76][6]_i_1_n_0    |                                  |                6 |             13 |         2.17 |
+|  clk_IBUF_BUFG                 | game_one/body_x[98][6]_i_1_n_0    |                                  |                4 |             13 |         3.25 |
+|  clk_IBUF_BUFG                 | game_one/body_x[92][6]_i_1_n_0    |                                  |                5 |             13 |         2.60 |
+|  clk_IBUF_BUFG                 | game_one/body_x[97][6]_i_1_n_0    |                                  |                5 |             13 |         2.60 |
+|  clk_IBUF_BUFG                 | game_one/body_x[94][6]_i_1_n_0    |                                  |                7 |             13 |         1.86 |
+|  clk_IBUF_BUFG                 | game_one/body_x[95][6]_i_1_n_0    |                                  |               13 |             13 |         1.00 |
+|  clk_IBUF_BUFG                 | game_one/body_x[84][6]_i_1_n_0    |                                  |                2 |             13 |         6.50 |
+|  clk_IBUF_BUFG                 |                                   | db_c/cnt[0]_i_1__3_n_0           |                5 |             20 |         4.00 |
+|  clk_IBUF_BUFG                 |                                   | db_d/cnt[0]_i_1__2_n_0           |                5 |             20 |         4.00 |
+|  clk_IBUF_BUFG                 |                                   | db_l/cnt[0]_i_1_n_0              |                5 |             20 |         4.00 |
+|  clk_IBUF_BUFG                 |                                   | db_r/cnt[0]_i_1__0_n_0           |                5 |             20 |         4.00 |
+|  clk_IBUF_BUFG                 |                                   | db_u/cnt[0]_i_1__1_n_0           |                5 |             20 |         4.00 |
+|  clk_IBUF_BUFG                 |                                   | game_three/frame_cnt[20]_i_1_n_0 |                6 |             21 |         3.50 |
+|  clk_IBUF_BUFG                 |                                   | pong_game/clear                  |                6 |             21 |         3.50 |
+|  clk_IBUF_BUFG                 | game_one/head_x                   | game_one/lfsr[15]_i_1_n_0        |                8 |             23 |         2.88 |
+|  clk_IBUF_BUFG                 | game_three/grav_cnt               | game_three/state0                |               12 |             45 |         3.75 |
+|  clk_IBUF_BUFG                 |                                   |                                  |               40 |             77 |         1.92 |
+|  clk_IBUF_BUFG                 |                                   | game_one/lfsr[15]_i_1_n_0        |               48 |            151 |         3.15 |
++--------------------------------+-----------------------------------+----------------------------------+------------------+----------------+--------------+
+
+
