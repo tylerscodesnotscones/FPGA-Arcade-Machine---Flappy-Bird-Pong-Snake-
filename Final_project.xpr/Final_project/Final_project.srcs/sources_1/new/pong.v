@@ -22,7 +22,7 @@
 
 module pong(
     input [9:0] x, y,
-    input video_on, clk,
+    input clk,
     input btnU, btnD,
     input [2:0] state,
     output reg [11:0] rgb
@@ -211,11 +211,8 @@ module pong(
     
     // display
     always @(*) begin
-        if (!active || video_on == 0) begin
-            rgb = black;
-        end
         // player paddle
-        else if ((x >= player_x_min) && (x < player_x_max) && (y >= player_y) && (y < player_y + paddle_height)) begin
+        if ((x >= player_x_min) && (x < player_x_max) && (y >= player_y) && (y < player_y + paddle_height)) begin
             rgb = white;
         end
         // comp paddle
@@ -242,16 +239,15 @@ endmodule
 
 
 //pong instantiation for top.v
-pong pong_game (
-    .state(state),
-    .reset(reset),
-    .clk(clk),
-    .video_on(video_on),
-    .btnU(btnU),
-    .btnD(btnD),
-    .x(x),
-    .y(y),
-);
+//pong pong_game (
+//    .state(state),
+//    .reset(reset),
+//    .clk(clk),
+//    .btnU(btnU),
+//    .btnD(btnD),
+//    .x(x),
+//    .y(y),
+//);
 
 
 

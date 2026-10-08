@@ -34,13 +34,12 @@ module Top(
     output [11:0] rgb
     );
 
-    // ---- declare everything BEFORE it is used in a port connection ----
     reg [2:0] state = 3'b000;
     wire video_on, p_tick;
     wire [9:0] x, y;
     wire [11:0] color, snake_color;
 
-    // ---- clean up the buttons (synchronize + debounce) ----
+    // ---- synchronize + debounce ----
     wire L, R, U, D, C;
     debounce db_l(.clk(clk), .din(btnL), .dout(L));
     debounce db_r(.clk(clk), .din(btnR), .dout(R));
@@ -50,7 +49,7 @@ module Top(
 
     vga_controller vga_c(
         .clk_100MHz(clk),
-        .reset(1'b0),            // was btnC; center button is now free for the menu
+        .reset(1'b0),
         .hsync(hsync),
         .vsync(vsync),
         .video_on(video_on),
@@ -63,6 +62,18 @@ module Top(
         .x(x), .y(y),
         .selector(state),
         .color(color)
+    );
+
+    wire playing_pong = (stable == 3'b100);
+
+    pong pong_game (
+        .state(state),
+        .reset(reset),
+        .clk(clk),
+        .btnU(btnU),
+        .btnD(btnD),
+        .x(x),
+        .y(y),
     );
 
     wire playing_snake = (state == 3'b011);
@@ -114,7 +125,8 @@ module Top(
     always @(*) begin
         if (!video_on)          rgb_reg = 12'h000;
         else if (playing_snake) rgb_reg = snake_color;
-        else                    rgb_reg = color;
+        else if (playing_pong)  rgb_reg = 
+        else                    rgb_reg = color; //selection_screen
     end
     assign rgb = rgb_reg;
 endmodule
